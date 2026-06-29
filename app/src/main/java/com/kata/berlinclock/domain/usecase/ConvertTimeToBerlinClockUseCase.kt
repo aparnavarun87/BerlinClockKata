@@ -17,9 +17,6 @@ class ConvertTimeToBerlinClockUseCase {
     }
 
     private fun getSecondsRow(seconds: Int): String {
-        if (seconds % 2 != 0) {
-           return "O"
-        }
-        return ""
+        return if (seconds % 2 != 0) "O" else "Y"
     }
 }
