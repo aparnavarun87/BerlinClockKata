@@ -51,4 +51,13 @@ class BerlinClockViewModelTest {
         val state = viewModel.uiState.value as BerlinClockUiState.Success
         Assertions.assertEquals(mockState, state.berlinClockState)
     }
+
+    @Test
+    fun `Should emit Error state for invalid time format`() = runTest {
+        viewModel.convertTime("invalid")
+        advanceUntilIdle()
+
+        val state = viewModel.uiState.value
+        Assertions.assertTrue((state as BerlinClockUiState.Error).message.contains("Invalid"))
+    }
 }
