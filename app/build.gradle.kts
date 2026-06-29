@@ -42,6 +42,18 @@ android {
             it.useJUnitPlatform()
         }
     }
+    configurations.all {
+        resolutionStrategy {
+            force("androidx.test.espresso:espresso-core:3.7.0")
+            force ("androidx.test.ext:junit:1.3.0")
+        }
+    }
+    packaging {
+        resources {
+            excludes.add("/META-INF/LICENSE.md")
+            excludes.add("/META-INF/LICENSE-notice.md")
+        }
+    }
 }
 
 dependencies {
@@ -56,6 +68,7 @@ dependencies {
     implementation("com.google.dagger:hilt-android:2.59.2")
     ksp("com.google.dagger:hilt-android-compiler:2.59.2")
     implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
+    implementation(libs.androidx.compose.ui.test.junit4)
 
     testImplementation(libs.junit)
     androidTestImplementation(platform(libs.androidx.compose.bom))
@@ -65,7 +78,8 @@ dependencies {
     debugImplementation(libs.androidx.compose.ui.tooling)
     testImplementation("org.junit.jupiter:junit-jupiter:5.11.0")
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
-    testImplementation("io.mockk:mockk:1.13.8")
+    testImplementation("io.mockk:mockk:1.14.11")
+    androidTestImplementation("io.mockk:mockk-android:1.14.11")
     testImplementation("app.cash.turbine:turbine:1.0.0")
     testImplementation("com.google.truth:truth:1.1.5")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher:1.10.2")
