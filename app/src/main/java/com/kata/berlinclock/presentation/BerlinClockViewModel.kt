@@ -3,12 +3,14 @@ package com.kata.berlinclock.presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.kata.berlinclock.domain.usecase.ConvertTimeToBerlinClockUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@HiltViewModel
 class BerlinClockViewModel @Inject constructor(
     private val convertTimeToBerlinClockUseCase: ConvertTimeToBerlinClockUseCase
 ) : ViewModel() {

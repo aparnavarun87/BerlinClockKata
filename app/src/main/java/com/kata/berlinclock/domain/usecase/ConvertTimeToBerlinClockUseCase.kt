@@ -1,8 +1,9 @@
 package com.kata.berlinclock.domain.usecase
 
 import com.kata.berlinclock.domain.model.BerlinClockState
+import javax.inject.Inject
 
-class ConvertTimeToBerlinClockUseCase {
+class ConvertTimeToBerlinClockUseCase @Inject constructor() {
     fun execute(time: String): BerlinClockState {
         val (hours, minutes, seconds) = parseTime(time)
 
