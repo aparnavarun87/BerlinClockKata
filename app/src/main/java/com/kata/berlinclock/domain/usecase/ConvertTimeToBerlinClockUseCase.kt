@@ -10,7 +10,8 @@ class ConvertTimeToBerlinClockUseCase {
             secondsRow = getSecondsRow(seconds),
             fiveHourRow = getFiveHourRow(hours),
             oneHourRow = getOneHourRow(hours),
-            fiveMinuteRow = getFiveMinuteRow(minutes)
+            fiveMinuteRow = getFiveMinuteRow(minutes),
+            oneMinuteRow = getOneMinuteRow(minutes)
         )
     }
 
@@ -55,6 +56,15 @@ class ConvertTimeToBerlinClockUseCase {
                 (i + 1) % 3 == 0 -> row.append("R")  // Denote Red for 15, 30, 45 minutes
                 else -> row.append("Y")
             }
+        }
+        return row.toString()
+    }
+
+    private fun getOneMinuteRow(minutes: Int): String {
+        val oneMinuteCount = minutes % 5
+        val row = StringBuilder()
+        repeat(4) { i ->
+            row.append(if (i < oneMinuteCount) "Y" else "O")
         }
         return row.toString()
     }
