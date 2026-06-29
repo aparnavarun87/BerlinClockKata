@@ -29,4 +29,16 @@ class BerlinClockScreenTest {
         composeTestRule.onNodeWithText("Berlin Clock")
             .assertIsDisplayed()
     }
+
+    @Test
+    fun testTimeInputFieldIsDisplayed() {
+        setupViewModelMock(BerlinClockUiState.Idle)
+
+        composeTestRule.setContent {
+            BerlinClockScreen()
+        }
+
+        composeTestRule.onNodeWithText("Enter time (HH:MM:SS)")
+            .assertIsDisplayed()
+    }
 }
