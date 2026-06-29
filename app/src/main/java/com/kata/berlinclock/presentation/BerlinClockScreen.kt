@@ -24,6 +24,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
+fun BerlinClockRoute() {
+    BerlinClockScreen()
+}
+
+@Composable
 fun BerlinClockScreen(
 ) {
     Column(
@@ -59,7 +64,6 @@ fun BerlinClockScreen(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(50.dp)
-                .padding(bottom = 24.dp)
         ) {
             Text("Convert to Berlin Clock")
         }
