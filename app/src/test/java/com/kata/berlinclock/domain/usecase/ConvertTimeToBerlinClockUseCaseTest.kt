@@ -65,4 +65,17 @@ class ConvertTimeToBerlinClockUseCaseTest {
         // Assert
         Assertions.assertEquals("ROOO", result.oneHourRow)
     }
+
+    @Test
+    @DisplayName("Should return R if five full minutes each or 15 30 and 45 minutes past, Y if less than 5 minutes otherwise Y for 12:56:04")
+    fun testTime12_56_04() {
+        // Arrange
+        val time = "12:56:04"
+
+        // Arrange & Act
+        val result = useCase.execute(time)
+
+        // Assert
+        Assertions.assertEquals("YYRYYRYYRYY", result.fiveMinuteRow)
+    }
 }

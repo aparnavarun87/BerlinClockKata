@@ -4,19 +4,21 @@ import com.kata.berlinclock.domain.model.BerlinClockState
 
 class ConvertTimeToBerlinClockUseCase {
     fun execute(time: String): BerlinClockState {
-        val (hours,seconds) = parseTime(time)
+        val (hours, minutes, seconds) = parseTime(time)
 
         return BerlinClockState(
             secondsRow = getSecondsRow(seconds),
             fiveHourRow = getFiveHourRow(hours),
-            oneHourRow = getOneHourRow(hours)
+            oneHourRow = getOneHourRow(hours),
+            fiveMinuteRow = getFiveMinuteRow(minutes)
         )
     }
 
-    private fun parseTime(time: String): Pair<Int, Int> {
+    private fun parseTime(time: String): Triple<Int, Int, Int> {
         val parts = time.split(":")
-        return Pair(
+        return Triple(
             parts[0].toInt(),
+            parts[1].toInt(),
             parts[2].toInt()
         )
     }
@@ -39,6 +41,20 @@ class ConvertTimeToBerlinClockUseCase {
         val row = StringBuilder()
         repeat(4) { i ->
             row.append(if (i < oneHourCount) "R" else "O")
+        }
+        return row.toString()
+    }
+
+    private fun getFiveMinuteRow(minutes: Int): String {
+        val fiveMinuteCount = minutes / 5
+        val row = StringBuilder()
+
+        repeat(11) { i ->
+            when {
+                i >= fiveMinuteCount -> row.append("O")
+                (i + 1) % 3 == 0 -> row.append("R")  // Denote Red for 15, 30, 45 minutes
+                else -> row.append("Y")
+            }
         }
         return row.toString()
     }
