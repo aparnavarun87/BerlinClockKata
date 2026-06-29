@@ -41,4 +41,16 @@ class BerlinClockScreenTest {
         composeTestRule.onNodeWithText("Enter time (HH:MM:SS)")
             .assertIsDisplayed()
     }
+
+    @Test
+    fun testConvertButtonIsDisplayed() {
+        setupViewModelMock(BerlinClockUiState.Idle)
+
+        composeTestRule.setContent {
+            BerlinClockScreen()
+        }
+
+        composeTestRule.onNodeWithText("Convert to Berlin Clock")
+            .assertIsDisplayed()
+    }
 }
