@@ -39,4 +39,17 @@ class ConvertTimeToBerlinClockUseCaseTest {
         // Assert
         Assertions.assertEquals("Y", result.secondsRow)
     }
+
+    @Test
+    @DisplayName("Should return R if five full hours each otherwise O for 11:56:01")
+    fun testTime11_56_01() {
+        // Arrange
+        val time = "11:56:01"
+
+        // Arrange & Act
+        val result = useCase.execute(time)
+
+        // Assert
+        Assertions.assertEquals("RROO", result.fiveHourRow)
+    }
 }
