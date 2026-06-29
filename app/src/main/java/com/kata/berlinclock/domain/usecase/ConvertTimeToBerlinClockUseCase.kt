@@ -8,7 +8,8 @@ class ConvertTimeToBerlinClockUseCase {
 
         return BerlinClockState(
             secondsRow = getSecondsRow(seconds),
-            fiveHourRow = getFiveHourRow(hours)
+            fiveHourRow = getFiveHourRow(hours),
+            oneHourRow = getOneHourRow(hours)
         )
     }
 
@@ -29,6 +30,15 @@ class ConvertTimeToBerlinClockUseCase {
         val row = StringBuilder()
         repeat(4) { i ->
             row.append(if (i < fiveHourCount) "R" else "O")
+        }
+        return row.toString()
+    }
+
+    private fun getOneHourRow(hours: Int): String {
+        val oneHourCount = hours % 5
+        val row = StringBuilder()
+        repeat(4) { i ->
+            row.append(if (i < oneHourCount) "R" else "O")
         }
         return row.toString()
     }
