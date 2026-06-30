@@ -23,19 +23,23 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 
 @Composable
 fun BerlinClockRoute(
     viewModel: BerlinClockViewModel = hiltViewModel()
 ) {
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     BerlinClockScreen(
-        onConvertClick =  viewModel ::convertTime
+        onConvertClick =  viewModel ::convertTime,
+        uiState = uiState
     )
 }
 
 @Composable
 fun BerlinClockScreen(
-    onConvertClick: (String) -> Unit
+    onConvertClick: (String) -> Unit,
+    uiState: BerlinClockUiState
 ) {
     Column(
         modifier = Modifier
@@ -72,6 +76,13 @@ fun BerlinClockScreen(
                 .height(50.dp)
         ) {
             Text("Convert to Berlin Clock")
+        }
+
+        if(uiState == BerlinClockUiState.Idle) {
+            Text(
+                text = "Enter a time to see the Berlin Clock",
+                modifier = Modifier.padding(16.dp)
+            )
         }
     }
 }

@@ -24,7 +24,7 @@ class BerlinClockScreenTest {
         setupViewModelMock(BerlinClockUiState.Idle)
 
         composeTestRule.setContent {
-            BerlinClockScreen(onConvertClick = {})
+            BerlinClockScreen(onConvertClick = {},testUiStateFlow.value)
         }
 
         composeTestRule.onNodeWithText("Berlin Clock")
@@ -36,7 +36,7 @@ class BerlinClockScreenTest {
         setupViewModelMock(BerlinClockUiState.Idle)
 
         composeTestRule.setContent {
-            BerlinClockScreen(onConvertClick = {})
+            BerlinClockScreen(onConvertClick = {}, testUiStateFlow.value)
         }
 
         composeTestRule.onNodeWithText("Enter time (HH:MM:SS)")
@@ -48,7 +48,7 @@ class BerlinClockScreenTest {
         setupViewModelMock(BerlinClockUiState.Idle)
 
         composeTestRule.setContent {
-            BerlinClockScreen(onConvertClick = {})
+            BerlinClockScreen(onConvertClick = {}, testUiStateFlow.value)
         }
 
         composeTestRule.onNodeWithText("Convert to Berlin Clock")
@@ -60,10 +60,22 @@ class BerlinClockScreenTest {
         setupViewModelMock(BerlinClockUiState.Idle)
 
         composeTestRule.setContent {
-            BerlinClockScreen(onConvertClick = {})
+            BerlinClockScreen(onConvertClick = {}, testUiStateFlow.value)
         }
 
         composeTestRule.onNodeWithText("Convert to Berlin Clock")
             .assertHasClickAction()
+    }
+
+    @Test
+    fun testIdleStateDisplaysInstructionalText() {
+        testUiStateFlow.value = BerlinClockUiState.Idle
+
+        composeTestRule.setContent {
+            BerlinClockScreen(onConvertClick = {}, testUiStateFlow.value)
+        }
+
+        composeTestRule.onNodeWithText("Enter a time to see the Berlin Clock")
+            .assertIsDisplayed()
     }
 }
