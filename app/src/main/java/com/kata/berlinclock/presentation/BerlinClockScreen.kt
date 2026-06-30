@@ -129,6 +129,13 @@ fun BerlinClockDisplay(berlinClockState: BerlinClockState) {
             value = berlinClockState.fiveHourRow,
             description = "5 hours each"
         )
+
+        // 1-Hour Row
+        ClockRow(
+            label = "1-Hour",
+            value = berlinClockState.oneHourRow,
+            description = "1 hour each"
+        )
     }
 }
 

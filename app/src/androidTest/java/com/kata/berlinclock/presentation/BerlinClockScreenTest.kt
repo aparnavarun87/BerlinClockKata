@@ -125,4 +125,18 @@ class BerlinClockScreenTest {
         composeTestRule.onNodeWithText("5-Hour")
             .assertIsDisplayed()
     }
+
+    @Test
+    fun testOneHourLabelDisplayed() {
+        composeTestRule.setContent {
+            ClockRow(
+                label = "1-Hour",
+                value = "RROO",
+                description = "1 hour each"
+            )
+        }
+
+        composeTestRule.onNodeWithText("1-Hour")
+            .assertIsDisplayed()
+    }
 }
