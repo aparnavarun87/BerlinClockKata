@@ -118,7 +118,7 @@ class BerlinClockScreenTest {
             ClockRow(
                 label = "5-Hour",
                 value = "RROO",
-                description = "5 hours each"
+                description = "5 hours each",
             )
         }
 
@@ -132,11 +132,25 @@ class BerlinClockScreenTest {
             ClockRow(
                 label = "1-Hour",
                 value = "RROO",
-                description = "1 hour each"
+                description = "1 hour each",
             )
         }
 
         composeTestRule.onNodeWithText("1-Hour")
+            .assertIsDisplayed()
+    }
+
+    @Test
+    fun testFiveMinuteLabelDisplayed() {
+        composeTestRule.setContent {
+            ClockRow(
+                label = "5-Minute",
+                value = "YYRYYRYYRYY",
+                description = "5 minutes each",
+            )
+        }
+
+        composeTestRule.onNodeWithText("5-Minute")
             .assertIsDisplayed()
     }
 }

@@ -118,7 +118,7 @@ fun BerlinClockDisplay(berlinClockState: BerlinClockState) {
         ClockRow(
             label = "Seconds",
             value = berlinClockState.secondsRow,
-            description = "Blink (Y=even, O=odd)"
+            description = "Blink (Y=even, O=odd)",
         )
 
         HorizontalDivider(modifier = Modifier.padding(vertical = 4.dp))
@@ -127,20 +127,28 @@ fun BerlinClockDisplay(berlinClockState: BerlinClockState) {
         ClockRow(
             label = "5-Hour",
             value = berlinClockState.fiveHourRow,
-            description = "5 hours each"
+            description = "5 hours each",
         )
 
         // 1-Hour Row
         ClockRow(
             label = "1-Hour",
             value = berlinClockState.oneHourRow,
-            description = "1 hour each"
+            description = "1 hour each",
+        )
+
+        // 5-Minute Row
+        ClockRow(
+            label = "5-Minute",
+            value = berlinClockState.fiveMinuteRow,
+            description = "5 minutes each (R at 15, 30, 45)",
+            isFiveMinutesRow = true
         )
     }
 }
 
 @Composable
-fun ClockRow(label: String, value: String, description: String) {
+fun ClockRow(label: String, value: String, description: String, isFiveMinutesRow: Boolean = false) {
     Spacer(modifier = Modifier.height(16.dp))
     Row(
         modifier = Modifier.fillMaxWidth(),
@@ -159,7 +167,7 @@ fun ClockRow(label: String, value: String, description: String) {
             value.forEach { char ->
                 Box(
                     modifier = Modifier
-                        .size(24.dp)
+                        .size(if(isFiveMinutesRow) 12.dp else 24.dp)
                         .background(
                             when (char) {
                                 'Y' -> Color.Yellow
