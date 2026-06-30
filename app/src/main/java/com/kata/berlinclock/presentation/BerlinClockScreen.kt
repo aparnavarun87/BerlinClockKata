@@ -144,6 +144,13 @@ fun BerlinClockDisplay(berlinClockState: BerlinClockState) {
             description = "5 minutes each (R at 15, 30, 45)",
             isFiveMinutesRow = true
         )
+
+        // 1-Minute Row
+        ClockRow(
+            label = "1-Minute",
+            value = berlinClockState.oneMinuteRow,
+            description = "1 minute each"
+        )
     }
 }
 
