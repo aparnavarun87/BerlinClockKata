@@ -22,14 +22,20 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 
 @Composable
-fun BerlinClockRoute() {
-    BerlinClockScreen()
+fun BerlinClockRoute(
+    viewModel: BerlinClockViewModel = hiltViewModel()
+) {
+    BerlinClockScreen(
+        onConvertClick =  viewModel ::convertTime
+    )
 }
 
 @Composable
 fun BerlinClockScreen(
+    onConvertClick: (String) -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -60,7 +66,7 @@ fun BerlinClockScreen(
         )
 
         Button(
-            onClick = {  },
+            onClick = { onConvertClick.invoke(timeInput) },
             modifier = Modifier
                 .fillMaxWidth()
                 .height(50.dp)

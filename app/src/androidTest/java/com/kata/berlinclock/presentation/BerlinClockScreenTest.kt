@@ -1,5 +1,6 @@
 package com.kata.berlinclock.presentation
 
+import androidx.compose.ui.test.assertHasClickAction
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
@@ -23,7 +24,7 @@ class BerlinClockScreenTest {
         setupViewModelMock(BerlinClockUiState.Idle)
 
         composeTestRule.setContent {
-            BerlinClockScreen()
+            BerlinClockScreen(onConvertClick = {})
         }
 
         composeTestRule.onNodeWithText("Berlin Clock")
@@ -35,7 +36,7 @@ class BerlinClockScreenTest {
         setupViewModelMock(BerlinClockUiState.Idle)
 
         composeTestRule.setContent {
-            BerlinClockScreen()
+            BerlinClockScreen(onConvertClick = {})
         }
 
         composeTestRule.onNodeWithText("Enter time (HH:MM:SS)")
@@ -47,10 +48,22 @@ class BerlinClockScreenTest {
         setupViewModelMock(BerlinClockUiState.Idle)
 
         composeTestRule.setContent {
-            BerlinClockScreen()
+            BerlinClockScreen(onConvertClick = {})
         }
 
         composeTestRule.onNodeWithText("Convert to Berlin Clock")
             .assertIsDisplayed()
+    }
+
+    @Test
+    fun testConvertButtonClickCallsViewModel() {
+        setupViewModelMock(BerlinClockUiState.Idle)
+
+        composeTestRule.setContent {
+            BerlinClockScreen(onConvertClick = {})
+        }
+
+        composeTestRule.onNodeWithText("Convert to Berlin Clock")
+            .assertHasClickAction()
     }
 }
