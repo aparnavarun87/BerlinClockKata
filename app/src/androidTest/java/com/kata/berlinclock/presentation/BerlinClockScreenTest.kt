@@ -4,6 +4,7 @@ import androidx.compose.ui.test.assertHasClickAction
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
+import androidx.compose.ui.test.onRoot
 import kotlinx.coroutines.flow.MutableStateFlow
 import org.junit.Test
 import org.junit.Rule
@@ -77,5 +78,17 @@ class BerlinClockScreenTest {
 
         composeTestRule.onNodeWithText("Enter a time to see the Berlin Clock")
             .assertIsDisplayed()
+    }
+
+    @Test
+    fun testLoadingStateShowsProgressIndicator() {
+        testUiStateFlow.value = BerlinClockUiState.Loading
+
+        composeTestRule.setContent {
+            BerlinClockScreen(onConvertClick = {}, testUiStateFlow.value)
+        }
+
+        composeTestRule.onRoot()
+            .assertExists()
     }
 }

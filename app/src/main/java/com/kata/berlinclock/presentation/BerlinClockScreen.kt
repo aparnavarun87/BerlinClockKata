@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -83,6 +84,9 @@ fun BerlinClockScreen(
                 text = "Enter a time to see the Berlin Clock",
                 modifier = Modifier.padding(16.dp)
             )
+        }
+        else if(uiState == BerlinClockUiState.Loading){
+            CircularProgressIndicator(modifier = Modifier.padding(16.dp))
         }
     }
 }
