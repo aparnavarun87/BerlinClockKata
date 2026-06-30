@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -14,6 +15,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -118,14 +120,23 @@ fun BerlinClockDisplay(berlinClockState: BerlinClockState) {
             value = berlinClockState.secondsRow,
             description = "Blink (Y=even, O=odd)"
         )
+
+        HorizontalDivider(modifier = Modifier.padding(vertical = 4.dp))
+
+        // 5-Hour Row
+        ClockRow(
+            label = "5-Hour",
+            value = berlinClockState.fiveHourRow,
+            description = "5 hours each"
+        )
     }
 }
 
 @Composable
 fun ClockRow(label: String, value: String, description: String) {
+    Spacer(modifier = Modifier.height(16.dp))
     Row(
-        modifier = Modifier.fillMaxWidth()
-            .padding(top = 16.dp),
+        modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -145,6 +156,7 @@ fun ClockRow(label: String, value: String, description: String) {
                         .background(
                             when (char) {
                                 'Y' -> Color.Yellow
+                                'R' -> Color.Red
                                 else -> Color.Black
                             }
                         )
