@@ -26,6 +26,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -137,6 +138,8 @@ fun BerlinClockDisplay(berlinClockState: BerlinClockState) {
             description = "1 hour each",
         )
 
+        HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
+
         // 5-Minute Row
         ClockRow(
             label = "5-Minute",
@@ -151,7 +154,26 @@ fun BerlinClockDisplay(berlinClockState: BerlinClockState) {
             value = berlinClockState.oneMinuteRow,
             description = "1 minute each"
         )
+
+        HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
+
+        // Time Display
+        TimeDisplayText(text = berlinClockState.toDisplayString(), modifier = Modifier.align(Alignment.CenterHorizontally))
     }
+}
+
+@Composable
+fun TimeDisplayText(text: String, modifier: Modifier = Modifier) {
+    Text(
+        text = text,
+        fontSize = 12.sp,
+        fontFamily = androidx.compose.ui.text.font.FontFamily.Monospace,
+        modifier = modifier
+            .background(Color.Black)
+            .padding(8.dp)
+            .testTag("Time Display"),
+        color = Color.Green
+    )
 }
 
 @Composable
