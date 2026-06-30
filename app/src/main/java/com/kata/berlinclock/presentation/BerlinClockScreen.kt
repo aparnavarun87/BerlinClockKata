@@ -1,12 +1,16 @@
 package com.kata.berlinclock.presentation
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
@@ -25,6 +29,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.kata.berlinclock.domain.model.BerlinClockState
 
 @Composable
 fun BerlinClockRoute(
@@ -79,14 +84,73 @@ fun BerlinClockScreen(
             Text("Convert to Berlin Clock")
         }
 
-        if(uiState == BerlinClockUiState.Idle) {
-            Text(
-                text = "Enter a time to see the Berlin Clock",
-                modifier = Modifier.padding(16.dp)
-            )
+        when (uiState) {
+            is BerlinClockUiState.Idle -> {
+                Text(
+                    text = "Enter a time to see the Berlin Clock",
+                    modifier = Modifier.padding(16.dp)
+                )
+            }
+            is BerlinClockUiState.Loading -> {
+                CircularProgressIndicator(modifier = Modifier.padding(16.dp))
+            }
+            is BerlinClockUiState.Success -> {
+                BerlinClockDisplay(uiState.berlinClockState)
+            }
+            else -> {}
         }
-        else if(uiState == BerlinClockUiState.Loading){
-            CircularProgressIndicator(modifier = Modifier.padding(16.dp))
+    }
+}
+
+@Composable
+fun BerlinClockDisplay(berlinClockState: BerlinClockState) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(Color(0xFFF5F5F5))
+            .padding(16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(12.dp)
+    ) {
+        // Seconds Row
+        ClockRow(
+            label = "Seconds",
+            value = berlinClockState.secondsRow,
+            description = "Blink (Y=even, O=odd)"
+        )
+    }
+}
+
+@Composable
+fun ClockRow(label: String, value: String, description: String) {
+    Row(
+        modifier = Modifier.fillMaxWidth()
+            .padding(top = 16.dp),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Column(modifier = Modifier.weight(1f)) {
+            Text(text = label, fontSize = 12.sp)
+            Text(text = description, fontSize = 10.sp, color = Color.Gray)
+        }
+
+        Row(
+            horizontalArrangement = Arrangement.spacedBy(4.dp),
+            modifier = Modifier.weight(2f, fill = false)
+        ) {
+            value.forEach { char ->
+                Box(
+                    modifier = Modifier
+                        .size(24.dp)
+                        .background(
+                            when (char) {
+                                'Y' -> Color.Yellow
+                                else -> Color.Black
+                            }
+                        )
+                        .border(1.dp, Color.DarkGray)
+                )
+            }
         }
     }
 }

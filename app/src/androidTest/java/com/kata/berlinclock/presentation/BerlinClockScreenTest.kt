@@ -5,6 +5,7 @@ import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.onRoot
+import com.kata.berlinclock.domain.model.BerlinClockState
 import kotlinx.coroutines.flow.MutableStateFlow
 import org.junit.Test
 import org.junit.Rule
@@ -83,6 +84,25 @@ class BerlinClockScreenTest {
     @Test
     fun testLoadingStateShowsProgressIndicator() {
         testUiStateFlow.value = BerlinClockUiState.Loading
+
+        composeTestRule.setContent {
+            BerlinClockScreen(onConvertClick = {}, testUiStateFlow.value)
+        }
+
+        composeTestRule.onRoot()
+            .assertExists()
+    }
+
+    @Test
+    fun testSuccessStateDisplaysBerlinClockDisplay() {
+        val berlinClockState = BerlinClockState(
+            secondsRow = "O",
+            fiveHourRow = "RROO",
+            oneHourRow = "RROO",
+            fiveMinuteRow = "YYRYYRYYRYY",
+            oneMinuteRow = "YOOO"
+        )
+        testUiStateFlow.value = BerlinClockUiState.Success(berlinClockState)
 
         composeTestRule.setContent {
             BerlinClockScreen(onConvertClick = {}, testUiStateFlow.value)
